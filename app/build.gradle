@@ -4,8 +4,12 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
+
     compileSdkVersion 27
+
     defaultConfig {
         applicationId "com.rx.rxworkshopgdg"
         minSdkVersion 21
@@ -13,7 +17,16 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        // BUILD CONFIG VALUES
+        buildConfigField "int", "LIMIT", "10"
+        buildConfigField "String", "BASEURL", "\"https://gateway.marvel.com/v1/public/\""
+        buildConfigField "String", "PUBLIC_KEY", "\"b7bc78adf0c9d5472678d080a2827d0a\""
+        buildConfigField "String", "PRIVATE_KEY", "\"XXXXXXX\""
+        buildConfigField "String", "HASH_MD5_DIGEST", "\"ffe4a13d21d44cafce380c60ee3f448d\""
+
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -30,4 +43,23 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    //Rx
+    implementation "io.reactivex.rxjava2:rxjava:$rx_java_version"
+    implementation "io.reactivex.rxjava2:rxandroid:$rx_android_version"
+
+    // Dagger 2
+    implementation "com.google.dagger:dagger:$dagger2_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger2_version"
+    compileOnly "org.glassfish:javax.annotation:3.1.1"
+
+    // Retrofit 2
+    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
 }
