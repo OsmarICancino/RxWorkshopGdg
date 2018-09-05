@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
     fun justWithArray() {
         Observable.just(primeNumbers)
                 .subscribe(
-                { t: IntArray? ->  Log.d("justWithArray::onNext", t.toString()) },
+                { t: IntArray? ->  Log.d("justWithArray::onNext", t?.contentToString()) },
                 { t: Throwable? -> Log.d("justWithArray::onError", t?.message) },
                 { Log.d("justWithArrayonComplete", "onComplete") }
         )
