@@ -1,6 +1,6 @@
 package com.rx.rxworkshopgdg.di
 
-import com.interview.kotlin.iterview.api.MarvelApi
+import com.rx.rxworkshopgdg.api.MarvelApi
 import com.rx.rxworkshopgdg.BuildConfig
 import com.rx.rxworkshopgdg.api.MarvelApiService
 import com.rx.rxworkshopgdg.api.MarvelAuthenticator
@@ -12,6 +12,7 @@ import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 import java.util.concurrent.TimeUnit
@@ -54,7 +55,7 @@ object NetworkModule {
         return Retrofit.Builder()
                 .baseUrl(BuildConfig.BASEURL)
                 .client(okHttpClient)
-                .addConverterFactory(MoshiConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .build()
     }

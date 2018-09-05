@@ -1,4 +1,4 @@
-package com.interview.kotlin.interview.model
+package com.rx.rxworkshopgdg.model
 
 /**
  * @author by hugo on 6/28/17.

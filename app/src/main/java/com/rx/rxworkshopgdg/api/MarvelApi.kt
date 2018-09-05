@@ -1,9 +1,6 @@
-package com.interview.kotlin.iterview.api
+package com.rx.rxworkshopgdg.api
 
-import com.interview.kotlin.interview.model.Character
-import com.interview.kotlin.interview.model.Comic
 import com.rx.rxworkshopgdg.model.*
-import io.reactivex.Flowable
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -18,7 +15,7 @@ interface MarvelApi {
      * Fetches a list of characters
      */
     //https://gateway.marvel.com/v1/public/characters?ts=1&apikey=fb9cf622de091ac20051e62a51c81149&hash=b68e7aeef8e1843eb3b2958aa737c743
-    @GET("characters?orderBy=-modified")
+    @GET("characters?orderBy=-modified&nameStartsWith=th")
     fun getCharacters(
             @Query("ts") ts: Long,
             @Query("apikey") apiKey: String,
@@ -30,24 +27,24 @@ interface MarvelApi {
      * Fetches a Character Detail given a characterId
      */
     //https://gateway.marvel.com/v1/public/characters/1009148?ts=1&apikey=fb9cf622de091ac20051e62a51c81149&hash=b68e7aeef8e1843eb3b2958aa737c743
-    @GET("characters/{characterId}?")
+    @GET("characters/{characterId}")
     fun getCharacterByCharacterId(
             @Path("characterId") characterId: Int,
             @Query("ts") ts: Long,
             @Query("apikey") apiKey: String,
-            @Query("hash") hash: String): Flowable<MarvelResponse<Character>>
+            @Query("hash") hash: String): Observable<MarvelResponse<Character>>
 
     /**
      * Fetches a list of Comics given a characterId
      */
     //https://gateway.marvel.com/v1/public/characters/1010338/comics?ts=1&apikey=fb9cf622de091ac20051e62a51c81149&hash=b68e7aeef8e1843eb3b2958aa737c743
-    @GET("characters/{characterId}/comics?")
+    @GET("characters/{characterId}/comics")
     fun getComicsByCharacterId(
             @Path("characterId") characterId: Int,
             @Query("ts") ts: Long,
             @Query("apikey") apiKey: String,
             @Query("hash") hash: String,
-            @Query("limit") limit: Int): Flowable<MarvelResponse<Comic>>
+            @Query("limit") limit: Int): Observable<MarvelResponse<Comic>>
 
     /**
      * Fetches a list of Events given a characterId
@@ -59,7 +56,7 @@ interface MarvelApi {
             @Query("ts") ts: Long,
             @Query("apikey") apiKey: String,
             @Query("hash") hash: String,
-            @Query("limit") limit: Int): Flowable<MarvelResponse<Event>>
+            @Query("limit") limit: Int): Observable<MarvelResponse<Event>>
 
     /**
      * Fetches a list of Series given a characterId
@@ -71,7 +68,7 @@ interface MarvelApi {
             @Query("ts") ts: Long,
             @Query("apikey") apiKey: String,
             @Query("hash") hash: String,
-            @Query("limit") limit: Int): Flowable<MarvelResponse<Serie>>
+            @Query("limit") limit: Int): Observable<MarvelResponse<Serie>>
 
     /**
      * Fetches a list of Stories given a characterId
@@ -83,7 +80,7 @@ interface MarvelApi {
             @Query("ts") ts: Long,
             @Query("apikey") apiKey: String,
             @Query("hash") hash: String,
-            @Query("limit") limit: Int): Flowable<MarvelResponse<Story>>
+            @Query("limit") limit: Int): Observable<MarvelResponse<Story>>
 
     /**
      * Fetches a Comic Detail given a comicId
@@ -94,7 +91,7 @@ interface MarvelApi {
             @Path("comicId") comicId: Int,
             @Query("ts") ts: Long,
             @Query("apikey") apiKey: String,
-            @Query("hash") hash: String): Flowable<MarvelResponse<Comic>>
+            @Query("hash") hash: String): Observable<MarvelResponse<Comic>>
 
     /**
      * Fetches a Creator Detail given a creatorId
@@ -105,7 +102,7 @@ interface MarvelApi {
             @Path("creatorId") creatorId: Int,
             @Query("ts") ts: Long,
             @Query("apikey") apiKey: String,
-            @Query("hash") hash: String): Flowable<MarvelResponse<Creator>>
+            @Query("hash") hash: String): Observable<MarvelResponse<Creator>>
 
     /**
      * Fetches an Event Detail given an eventId
@@ -116,7 +113,7 @@ interface MarvelApi {
             @Path("eventId") eventId: Int,
             @Query("ts") ts: Long,
             @Query("apikey") apiKey: String,
-            @Query("hash") hash: String): Flowable<MarvelResponse<Event>>
+            @Query("hash") hash: String): Observable<MarvelResponse<Event>>
 
     /**
      * Fetches a Series Detail given a seriesId
@@ -127,7 +124,7 @@ interface MarvelApi {
             @Path("seriesId") seriesId: Int,
             @Query("ts") ts: Long,
             @Query("apikey") apiKey: String,
-            @Query("hash") hash: String): Flowable<MarvelResponse<Serie>>
+            @Query("hash") hash: String): Observable<MarvelResponse<Serie>>
 
     /**
      * Fetches a Story Detail given a storyId
@@ -138,6 +135,6 @@ interface MarvelApi {
             @Path("storyId") storyId: Int,
             @Query("ts") ts: Long,
             @Query("apikey") apiKey: String,
-            @Query("hash") hash: String): Flowable<MarvelResponse<Comic>>
+            @Query("hash") hash: String): Observable<MarvelResponse<Comic>>
 
 }
