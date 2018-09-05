@@ -183,7 +183,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun getPriceSumOfComicsOfCharacterWithShorterName() {
-
+        marvelApiService.getCharacters()
+                .flatMapIterable { t: MarvelResponse<Character> -> t.data?.results }
+                .sorted({ o1: Character, o2: Character -> ( (o1.name?.length?:0) - (o2.name?.length?:0) ) })
+                .take(1)
+                .map { it.id }
+                .flatMap { t -> marvelApiService.getComicsByCharacterId(t) }
+                .flatMapIterable {t: MarvelResponse<Comic> -> t.data?.results }
+                .flatMapIterable { t: Comic -> t.prices }
+                .filter(Predicate { t -> t.type?.contentEquals("printPrice")?:false})
+                .map { t: Comic.PricesBean -> t.price }
+                .reduce(BiFunction{t1, t2 -> t1 + t2 })
+                .subscribe({ it ->
+                    Log.d("getCharacterList", "result arrived sum=$it" )
+                }, { t -> Log.e("API ERROR", t.message) })
     }
 
 }
